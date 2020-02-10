@@ -1,4 +1,7 @@
-*/Log/
+lidar_localization/slam_data
+
+*.INFO
+*.INFO.*
 
 # Prerequisites
 *.d
