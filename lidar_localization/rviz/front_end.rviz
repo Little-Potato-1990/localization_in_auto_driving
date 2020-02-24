@@ -7,8 +7,12 @@ Panels:
         - /Global Options1
         - /Status1
         - /CurrentScan1/Autocompute Value Bounds1
+        - /laser_odom1
+        - /laser_odom1/Shape1
         - /global_map1/Autocompute Value Bounds1
+        - /gnss1
         - /gnss1/Shape1
+        - /gnss1/Covariance1
       Splitter Ratio: 0.5
     Tree Height: 613
   - Class: rviz/Selection
@@ -189,7 +193,7 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
-    - Angle Tolerance: 0.100000001
+    - Angle Tolerance: 1
       Class: rviz/Odometry
       Covariance:
         Orientation:
@@ -207,9 +211,9 @@ Visualization Manager:
           Value: true
         Value: true
       Enabled: true
-      Keep: 1000000
+      Keep: 100000000
       Name: gnss
-      Position Tolerance: 0.100000001
+      Position Tolerance: 1
       Shape:
         Alpha: 1
         Axes Length: 1
@@ -248,25 +252,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 757.423157
+      Distance: 41.1809998
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 146.782425
-        Y: 194.966949
-        Z: -1.6548084
+        X: 53.6667175
+        Y: 60.7000389
+        Z: -5.06554937
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 1.56979632
+      Pitch: 0.699797213
       Target Frame: base_link
       Value: Orbit (rviz)
-      Yaw: 4.22373343
+      Yaw: 4.40874577
     Saved: ~
 Window Geometry:
   Displays:

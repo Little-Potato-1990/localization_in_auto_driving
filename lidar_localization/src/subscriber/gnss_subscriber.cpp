@@ -18,7 +18,7 @@ void GNSSSubscriber::msg_callback(const sensor_msgs::NavSatFixConstPtr& nav_sat_
     gnss_data.time = nav_sat_fix_ptr->header.stamp.toSec();
     gnss_data.latitude = nav_sat_fix_ptr->latitude;
     gnss_data.longitude = nav_sat_fix_ptr->longitude;
-    gnss_data.altitude = nav_sat_fix_ptr->longitude;
+    gnss_data.altitude = nav_sat_fix_ptr->altitude;
     gnss_data.status = nav_sat_fix_ptr->status.status;
     gnss_data.service = nav_sat_fix_ptr->status.service;
 
