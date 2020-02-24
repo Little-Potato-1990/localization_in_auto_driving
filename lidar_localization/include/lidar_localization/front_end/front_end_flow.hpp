@@ -35,6 +35,7 @@ class FrontEndFlow {
     bool UpdateGNSSOdometry();
     bool UpdateLaserOdometry();
     bool PublishData();
+    bool SaveTrajectory();
 
   private:
     std::shared_ptr<CloudSubscriber> cloud_sub_ptr_;
