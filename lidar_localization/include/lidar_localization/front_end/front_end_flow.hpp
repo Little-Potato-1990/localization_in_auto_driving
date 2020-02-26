@@ -16,6 +16,7 @@
 #include "lidar_localization/publisher/cloud_publisher.hpp"
 #include "lidar_localization/publisher/odometry_publisher.hpp"
 #include "lidar_localization/front_end/front_end.hpp"
+#include "lidar_localization/models/scan_adjust/distortion_adjust.hpp"
 
 namespace lidar_localization {
 class FrontEndFlow {
@@ -65,6 +66,8 @@ class FrontEndFlow {
     CloudData::CLOUD_PTR current_scan_ptr_;
     Eigen::Matrix4f gnss_odometry_ = Eigen::Matrix4f::Identity();
     Eigen::Matrix4f laser_odometry_ = Eigen::Matrix4f::Identity();
+
+    std::shared_ptr<DistortionAdjust> distortion_adjust_ptr_;
 };
 }
 
