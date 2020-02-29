@@ -4,7 +4,6 @@
  * @Date: 2019-06-14 16:44:18
  */
 #include "lidar_localization/subscriber/imu_subscriber.hpp"
-
 #include "glog/logging.h"
 
 namespace lidar_localization{

@@ -15,7 +15,7 @@ void DistortionAdjust::SetMotionInfo(float scan_period, VelocityData velocity_da
 
 bool DistortionAdjust::AdjustCloud(CloudData::CLOUD_PTR& input_cloud_ptr, CloudData::CLOUD_PTR& output_cloud_ptr) {
     CloudData::CLOUD_PTR origin_cloud_ptr(new CloudData::CLOUD(*input_cloud_ptr));
-    output_cloud_ptr->points.clear();
+    output_cloud_ptr.reset(new CloudData::CLOUD());
 
     float orientation_space = 2.0 * M_PI;
     float delete_space = 5.0 * M_PI / 180.0;

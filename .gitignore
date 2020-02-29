@@ -2,6 +2,8 @@ lidar_localization/slam_data
 
 *.INFO
 *.INFO.*
+*.log.*
+*.WARNING
 
 # Prerequisites
 *.d
