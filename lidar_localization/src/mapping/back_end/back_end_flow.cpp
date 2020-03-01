@@ -39,6 +39,16 @@ bool BackEndFlow::Run() {
     return true;
 }
 
+bool BackEndFlow::ForceOptimize() {
+    back_end_ptr_->ForceOptimize();
+    if (back_end_ptr_->HasNewOptimized()) {
+        std::deque<KeyFrame> optimized_key_frames;
+        back_end_ptr_->GetOptimizedKeyFrames(optimized_key_frames);
+        key_frames_pub_ptr_->Publish(optimized_key_frames);
+    }
+    return true;
+}
+
 bool BackEndFlow::ReadData() {
     cloud_sub_ptr_->ParseData(cloud_data_buff_);
     gnss_pose_sub_ptr_->ParseData(gnss_pose_data_buff_);

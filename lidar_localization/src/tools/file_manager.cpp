@@ -20,11 +20,12 @@ bool FileManager::CreateFile(std::ofstream& ofs, std::string file_path) {
 }
 
 bool FileManager::InitDirectory(std::string directory_path, std::string use_for) {
-    if (boost::filesystem::is_directory(directory_path)) {
-        boost::filesystem::remove_all(directory_path + "/tail");
-        LOG(INFO) << use_for << "存放地址：" << std::endl << directory_path << std::endl << std::endl;
-        return true;
-    }
+    // TODO:本段程序想实现的是，如果已经有这个文件夹，只清空其内容，而不重新建，但是现在没实现预期效果
+    // if (boost::filesystem::is_directory(directory_path)) {
+    //     boost::filesystem::remove_all(directory_path + "/tail");
+    //     LOG(INFO) << use_for << "存放地址：" << std::endl << directory_path << std::endl << std::endl;
+    //     return true;
+    // }
 
     return CreateDirectory(directory_path, use_for);
 }

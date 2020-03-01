@@ -64,12 +64,9 @@ bool Viewer::InitFilter(std::string filter_user, std::shared_ptr<CloudFilterInte
     return true;
 }
 
-bool Viewer::Update(std::deque<KeyFrame>& new_key_frames,
-                    std::deque<KeyFrame>& optimized_key_frames,
-                    PoseData transformed_data,
-                    CloudData cloud_data) {
-    ResetParam();
-
+bool Viewer::UpdateWithOptimizedKeyFrames(std::deque<KeyFrame>& optimized_key_frames) {
+    has_new_global_map_ = false;
+    
     if (optimized_key_frames.size() > 0) {
         optimized_key_frames_ = optimized_key_frames;
         optimized_key_frames.clear();
@@ -77,8 +74,21 @@ bool Viewer::Update(std::deque<KeyFrame>& new_key_frames,
         has_new_global_map_ = true;
     }
 
-    if (new_key_frames.size()) {
-        all_key_frames_.insert(all_key_frames_.end(), new_key_frames.begin(), new_key_frames.end());
+    return has_new_global_map_;
+}
+
+bool Viewer::UpdateWithNewKeyFrame(std::deque<KeyFrame>& new_key_frames,
+                                   PoseData transformed_data,
+                                   CloudData cloud_data) {
+    has_new_local_map_ = false;
+
+    if (new_key_frames.size() > 0) {
+        KeyFrame key_frame;
+        for (size_t i = 0; i < new_key_frames.size(); ++i) {
+            key_frame = new_key_frames.at(i);
+            key_frame.pose = pose_to_optimize_ * key_frame.pose;
+            all_key_frames_.push_back(key_frame);
+        }
         new_key_frames.clear();
         has_new_local_map_ = true;
     }
@@ -90,11 +100,6 @@ bool Viewer::Update(std::deque<KeyFrame>& new_key_frames,
     pcl::transformPointCloud(*cloud_data.cloud_ptr, *optimized_cloud_.cloud_ptr, optimized_odom_.pose);
 
     return true;
-}
-
-void Viewer::ResetParam() {
-    has_new_local_map_ = false;
-    has_new_global_map_ = false;
 }
 
 bool Viewer::OptimizeKeyFrames() {
@@ -132,8 +137,9 @@ bool Viewer::JointLocalMap(CloudData::CLOUD_PTR& local_map_ptr) {
         begin_index = all_key_frames_.size() - (size_t)local_frame_num_;
 
     std::deque<KeyFrame> local_key_frames;
-    for (size_t i = begin_index; i < all_key_frames_.size(); ++i)
+    for (size_t i = begin_index; i < all_key_frames_.size(); ++i) {
         local_key_frames.push_back(all_key_frames_.at(i));
+    }
 
     JointCloudMap(local_key_frames, local_map_ptr);
     return true;

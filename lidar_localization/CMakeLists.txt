@@ -21,6 +21,7 @@ find_package(catkin REQUIRED COMPONENTS
 add_service_files(
    FILES
    saveMap.srv
+   optimizeMap.srv
 )
 
 generate_messages(
@@ -35,6 +36,7 @@ include(cmake/YAML.cmake)
 include(cmake/PCL.cmake)
 include(cmake/eigen.cmake)
 include(cmake/geographic.cmake)
+include(cmake/g2o.cmake)
 
 include_directories(include ${catkin_INCLUDE_DIRS})
 include(cmake/global_defination.cmake)
@@ -58,7 +60,7 @@ add_dependencies(front_end_node ${catkin_EXPORTED_TARGETS})
 target_link_libraries(front_end_node ${catkin_LIBRARIES} ${ALL_TARGET_LIBRARIES})
 
 add_executable(back_end_node src/apps/back_end_node.cpp ${ALL_SRCS})
-add_dependencies(back_end_node ${catkin_EXPORTED_TARGETS})
+add_dependencies(back_end_node ${catkin_EXPORTED_TARGETS} optimizeMap_gencpp)
 target_link_libraries(back_end_node ${catkin_LIBRARIES} ${ALL_TARGET_LIBRARIES})
 
 add_executable(viewer_node src/apps/viewer_node.cpp ${ALL_SRCS})

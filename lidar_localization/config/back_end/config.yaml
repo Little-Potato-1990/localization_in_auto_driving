@@ -4,7 +4,16 @@ data_path: ./   # 数据存放路径
 key_frame_distance: 2.0 # 关键帧距离
 
 # 优化
-optimize_step_with_none: 100 # 没有其他信息时，每隔 step 发送一次优化的位姿
-optimize_step_with_gnss: 100 # 每累计 step 个 gnss 观测时，优化一次
-optimize_step_with_loop: 10  # 每累计 step 个闭环约束时优化一次
+graph_optimizer_type: g2o # 图优化库，目前支持g2o
 
+use_gnss: true
+use_loop_close: false
+
+optimize_step_with_key_frame: 10000 # 没有其他信息时，每隔 step 发送一次优化的位姿
+optimize_step_with_gnss: 950 # 每累计 step 个 gnss 观测时，优化一次
+optimize_step_with_loop: 100  # 每累计 step 个闭环约束时优化一次
+
+g2o_param:
+    odom_edge_noise: [0.5, 0.5, 0.5, 0.001, 0.001, 0.001] # 噪声：x y z yaw roll pitch
+    close_loop_noise: [2.0, 2.0, 2.0, 0.01, 0.01, 0.01] # 噪声：x y z yaw roll pitch
+    gnss_noise: [2.0, 2.0, 2.0] # 噪声：x y z

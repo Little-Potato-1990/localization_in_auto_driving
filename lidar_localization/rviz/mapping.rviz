@@ -8,6 +8,7 @@ Panels:
         - /Status1
         - /trajectory1
         - /trajectory1/gnss_pose1/Shape1
+        - /trajectory1/laser_odom1/Shape1
         - /PointCloud1
       Splitter Ratio: 0.5
     Tree Height: 613
@@ -135,13 +136,13 @@ Visualization Manager:
           Topic: /transformed_odom
           Unreliable: false
           Value: true
-        - Alpha: 1
+        - Alpha: 100
           Buffer Length: 1
           Class: rviz/Path
-          Color: 25; 255; 0
-          Enabled: false
-          Head Diameter: 0.300000012
-          Head Length: 0.200000003
+          Color: 0; 255; 127
+          Enabled: true
+          Head Diameter: 1
+          Head Length: 1
           Length: 0.300000012
           Line Style: Lines
           Line Width: 0.0299999993
@@ -150,14 +151,14 @@ Visualization Manager:
             X: 0
             Y: 0
             Z: 0
-          Pose Color: 255; 85; 255
-          Pose Style: None
+          Pose Color: 0; 255; 127
+          Pose Style: Arrows
           Radius: 0.0299999993
-          Shaft Diameter: 0.100000001
-          Shaft Length: 0.100000001
+          Shaft Diameter: 0.5
+          Shaft Length: 1
           Topic: /optimized_key_frames
           Unreliable: false
-          Value: false
+          Value: true
         - Angle Tolerance: 0.100000001
           Class: rviz/Odometry
           Covariance:
@@ -199,8 +200,8 @@ Visualization Manager:
         - Alpha: 0.300000012
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
-            Max Value: 33.0738144
-            Min Value: 6.72371483
+            Max Value: 5.85499573
+            Min Value: -18.3432865
             Value: true
           Axis: Z
           Channel Name: intensity
@@ -208,7 +209,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: AxisColor
           Decay Time: 0
-          Enabled: false
+          Enabled: true
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Max Intensity: 4096
@@ -225,7 +226,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: false
+          Value: true
         - Alpha: 0.300000012
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -238,7 +239,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: AxisColor
           Decay Time: 0
-          Enabled: false
+          Enabled: true
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Max Intensity: 4096
@@ -255,7 +256,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: false
+          Value: true
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -313,16 +314,16 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 461.301758
+      Distance: 357.795013
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 2.53319502
-        Y: 27.3582897
-        Z: 1.28014624
+        X: 22.3570652
+        Y: 39.4203186
+        Z: -0.00322884531
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
@@ -331,7 +332,7 @@ Visualization Manager:
       Pitch: 1.56979632
       Target Frame: base_link
       Value: Orbit (rviz)
-      Yaw: 5.85542107
+      Yaw: 5.83858252
     Saved: ~
 Window Geometry:
   Displays:
