@@ -55,6 +55,7 @@ add_executable(data_pretreat_node src/apps/data_pretreat_node.cpp ${ALL_SRCS})
 add_dependencies(data_pretreat_node ${catkin_EXPORTED_TARGETS})
 target_link_libraries(data_pretreat_node ${catkin_LIBRARIES} ${ALL_TARGET_LIBRARIES})
 
+
 add_executable(front_end_node src/apps/front_end_node.cpp ${ALL_SRCS})
 add_dependencies(front_end_node ${catkin_EXPORTED_TARGETS})
 target_link_libraries(front_end_node ${catkin_LIBRARIES} ${ALL_TARGET_LIBRARIES})
@@ -62,6 +63,10 @@ target_link_libraries(front_end_node ${catkin_LIBRARIES} ${ALL_TARGET_LIBRARIES}
 add_executable(back_end_node src/apps/back_end_node.cpp ${ALL_SRCS})
 add_dependencies(back_end_node ${catkin_EXPORTED_TARGETS} optimizeMap_gencpp)
 target_link_libraries(back_end_node ${catkin_LIBRARIES} ${ALL_TARGET_LIBRARIES})
+
+add_executable(loop_closing_node src/apps/loop_closing_node.cpp ${ALL_SRCS})
+add_dependencies(loop_closing_node ${catkin_EXPORTED_TARGETS})
+target_link_libraries(loop_closing_node ${catkin_LIBRARIES} ${ALL_TARGET_LIBRARIES})
 
 add_executable(viewer_node src/apps/viewer_node.cpp ${ALL_SRCS})
 add_dependencies(viewer_node ${catkin_EXPORTED_TARGETS} saveMap_gencpp)

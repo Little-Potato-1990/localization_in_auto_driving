@@ -69,6 +69,7 @@
         "valarray": "cpp",
         "*.ipp": "cpp",
         "string": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "iterator": "cpp"
     }
 }

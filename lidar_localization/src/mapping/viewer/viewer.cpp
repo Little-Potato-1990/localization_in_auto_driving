@@ -18,9 +18,10 @@ Viewer::Viewer() {
 }
 
 bool Viewer::InitWithConfig() {
-    std::string config_file_path = WORK_SPACE_PATH + "/config/viewer/config.yaml";
+    std::string config_file_path = WORK_SPACE_PATH + "/config/mapping/viewer.yaml";
     YAML::Node config_node = YAML::LoadFile(config_file_path);
 
+    std::cout << "-----------------显示模块初始化-------------------" << std::endl;
     InitParam(config_node);
     InitDataPath(config_node);
     InitFilter("frame", frame_filter_ptr_, config_node);
@@ -52,7 +53,7 @@ bool Viewer::InitDataPath(const YAML::Node& config_node) {
 
 bool Viewer::InitFilter(std::string filter_user, std::shared_ptr<CloudFilterInterface>& filter_ptr, const YAML::Node& config_node) {
     std::string filter_mothod = config_node[filter_user + "_filter"].as<std::string>();
-    LOG(INFO) << "viewer_" + filter_user << "选择的滤波方法为：" << filter_mothod;
+    std::cout << "显示模块" << filter_user << "选择的滤波方法为：" << filter_mothod << std::endl;
 
     if (filter_mothod == "voxel_filter") {
         filter_ptr = std::make_shared<VoxelFilter>(config_node[filter_mothod][filter_user]);

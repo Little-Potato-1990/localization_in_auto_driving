@@ -14,6 +14,7 @@
 #include "lidar_localization/sensor_data/cloud_data.hpp"
 #include "lidar_localization/sensor_data/pose_data.hpp"
 #include "lidar_localization/sensor_data/key_frame.hpp"
+#include "lidar_localization/sensor_data/loop_pose.hpp"
 
 #include "lidar_localization/models/graph_optimizer/g2o/g2o_graph_optimizer.hpp"
 
@@ -23,13 +24,15 @@ class BackEnd {
     BackEnd();
 
     bool Update(const CloudData& cloud_data, const PoseData& laser_odom, const PoseData& gnss_pose);
-
+    bool InsertLoopPose(const LoopPose& loop_pose);
     bool ForceOptimize();
+
     void GetOptimizedKeyFrames(std::deque<KeyFrame>& key_frames_deque);
     bool HasNewKeyFrame();
     bool HasNewOptimized();
     void GetLatestKeyFrame(KeyFrame& key_frame);
-  
+    void GetLatestKeyGNSS(KeyFrame& key_frame);
+
   private:
     bool InitWithConfig();
     bool InitParam(const YAML::Node& config_node);
@@ -37,10 +40,11 @@ class BackEnd {
     bool InitDataPath(const YAML::Node& config_node);
 
     void ResetParam();
-    bool SaveTrajectory(const PoseData& laser_odom, const PoseData& gnss_pose);
+    bool SavePose(std::ofstream& ofs, const Eigen::Matrix4f& pose);
     bool AddNodeAndEdge(const PoseData& gnss_data);
-    bool MaybeNewKeyFrame(const CloudData& cloud_data, const PoseData& laser_odom);
+    bool MaybeNewKeyFrame(const CloudData& cloud_data, const PoseData& laser_odom, const PoseData& gnss_pose);
     bool MaybeOptimized();
+    bool SaveOptimizedPose();
 
   private:
     std::string key_frames_path_ = "";
@@ -48,6 +52,7 @@ class BackEnd {
 
     std::ofstream ground_truth_ofs_;
     std::ofstream laser_odom_ofs_;
+    std::ofstream optimized_pose_ofs_;
 
     float key_frame_distance_ = 2.0;
 
@@ -55,11 +60,13 @@ class BackEnd {
     bool has_new_optimized_ = false;
 
     KeyFrame current_key_frame_;
+    KeyFrame current_key_gnss_;
     std::deque<KeyFrame> key_frames_deque_;
+    std::deque<Eigen::Matrix4f> optimized_pose_;
 
     // 优化器
     std::shared_ptr<InterfaceGraphOptimizer> graph_optimizer_ptr_;
-    
+
     class GraphOptimizerConfig {
       public:
         GraphOptimizerConfig() {
@@ -67,7 +74,7 @@ class BackEnd {
           close_loop_noise.resize(6);
           gnss_noise.resize(3);
         }
-      
+
       public:
         bool use_gnss = true;
         bool use_loop_close = false;

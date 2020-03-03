@@ -20,6 +20,7 @@ class RegistrationInterface {
                           const Eigen::Matrix4f& predict_pose, 
                           CloudData::CLOUD_PTR& result_cloud_ptr,
                           Eigen::Matrix4f& result_pose) = 0;
+    virtual float GetFitnessScore() = 0;
 };
 } 
 

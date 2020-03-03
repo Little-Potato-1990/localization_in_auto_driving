@@ -24,7 +24,7 @@ VoxelFilter::VoxelFilter(float leaf_size_x, float leaf_size_y, float leaf_size_z
 bool VoxelFilter::SetFilterParam(float leaf_size_x, float leaf_size_y, float leaf_size_z) {
     voxel_filter_.setLeafSize(leaf_size_x, leaf_size_y, leaf_size_z);
 
-    LOG(INFO) << "Voxel Filter 的参数为：" << std::endl
+    std::cout << "Voxel Filter 的参数为：" << std::endl
               << leaf_size_x << ", "
               << leaf_size_y << ", "
               << leaf_size_z 
@@ -33,7 +33,7 @@ bool VoxelFilter::SetFilterParam(float leaf_size_x, float leaf_size_y, float lea
     return true;
 }
 
-bool VoxelFilter::Filter(const CloudData::CLOUD_PTR& input_cloud_ptr, CloudData::CLOUD_PTR& filtered_cloud_ptr) {
+bool VoxelFilter::Filter(CloudData::CLOUD_PTR& input_cloud_ptr, CloudData::CLOUD_PTR& filtered_cloud_ptr) {
     voxel_filter_.setInputCloud(input_cloud_ptr);
     voxel_filter_.filter(*filtered_cloud_ptr);
 

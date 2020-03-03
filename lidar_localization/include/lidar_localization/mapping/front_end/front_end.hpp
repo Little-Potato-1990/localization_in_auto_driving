@@ -12,8 +12,8 @@
 #include <yaml-cpp/yaml.h>
 
 #include "lidar_localization/sensor_data/cloud_data.hpp"
-#include "lidar_localization/models/registration/ndt_registration.hpp"
-#include "lidar_localization/models/cloud_filter/voxel_filter.hpp"
+#include "lidar_localization/models/registration/registration_interface.hpp"
+#include "lidar_localization/models/cloud_filter/cloud_filter_interface.hpp"
 
 namespace lidar_localization {
 class FrontEnd {

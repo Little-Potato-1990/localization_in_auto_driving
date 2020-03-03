@@ -1,0 +1,28 @@
+# 匹配
+registration_method: NDT   # 选择点云匹配方法，目前支持：NDT 
+
+
+# 当前帧
+# no_filter指不对点云滤波，在匹配中，理论上点云越稠密，精度越高，但是速度也越慢
+# 所以提供这种不滤波的模式做为对比，以方便使用者去体会精度和效率随稠密度的变化关系
+frame_filter: voxel_filter # 选择当前帧点云滤波方法，目前支持：voxel_filter、no_filter
+
+# 局部地图
+key_frame_distance: 2.0 # 关键帧距离
+local_frame_num: 20
+local_map_filter: voxel_filter # 选择滑窗地图点云滤波方法，目前支持：voxel_filter、no_filter
+
+
+# 各配置选项对应参数
+## 匹配相关参数
+NDT:
+    res : 1.0
+    step_size : 0.1
+    trans_eps : 0.01
+    max_iter : 30
+## 滤波相关参数
+voxel_filter:
+    local_map:
+        leaf_size: [0.6, 0.6, 0.6]
+    frame:
+        leaf_size: [1.3, 1.3, 1.3]
