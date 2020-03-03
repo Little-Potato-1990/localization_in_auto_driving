@@ -29,8 +29,11 @@ int main(int argc, char *argv[]) {
     ros::init(argc, argv, "viewer_node");
     ros::NodeHandle nh;
 
+    std::string cloud_topic;
+    nh.param<std::string>("cloud_topic", cloud_topic, "/synced_cloud");
+    std::shared_ptr<ViewerFlow> _viewer_flow_ptr = std::make_shared<ViewerFlow>(nh, cloud_topic);
+
     ros::ServiceServer service = nh.advertiseService("save_map", save_map_callback);
-    std::shared_ptr<ViewerFlow> _viewer_flow_ptr = std::make_shared<ViewerFlow>(nh);
 
     ros::Rate rate(100);
     while (ros::ok()) {
