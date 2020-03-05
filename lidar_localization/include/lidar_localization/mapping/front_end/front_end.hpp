@@ -8,7 +8,6 @@
 
 #include <deque>
 #include <Eigen/Dense>
-#include <pcl/registration/ndt.h>
 #include <yaml-cpp/yaml.h>
 
 #include "lidar_localization/sensor_data/cloud_data.hpp"

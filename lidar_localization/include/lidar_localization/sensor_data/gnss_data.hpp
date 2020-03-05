@@ -23,6 +23,10 @@ class GNSSData {
     int status = 0;
     int service = 0;
 
+    static double origin_longitude;
+    static double origin_latitude;
+    static double origin_altitude;
+
   private:
     static GeographicLib::LocalCartesian geo_converter;
     static bool origin_position_inited;

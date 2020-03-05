@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
     std::shared_ptr<TFListener> lidar_to_imu_ptr = std::make_shared<TFListener>(nh, "velo_link", "imu_link");
 
     std::shared_ptr<CloudPublisher> cloud_pub_ptr = std::make_shared<CloudPublisher>(nh, "current_scan", "/map", 100);
-    std::shared_ptr<OdometryPublisher> odom_pub_ptr = std::make_shared<OdometryPublisher>(nh, "lidar_odom", "map", "lidar", 100);
+    std::shared_ptr<OdometryPublisher> odom_pub_ptr = std::make_shared<OdometryPublisher>(nh, "lidar_odom", "/map", "/lidar", 100);
 
     std::deque<CloudData> cloud_data_buff;
     std::deque<IMUData> imu_data_buff;

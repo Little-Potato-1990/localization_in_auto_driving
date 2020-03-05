@@ -8,12 +8,20 @@
 #include "glog/logging.h"
 
 //静态成员变量必须在类外初始化
+double lidar_localization::GNSSData::origin_longitude = 0.0;
+double lidar_localization::GNSSData::origin_latitude = 0.0;
+double lidar_localization::GNSSData::origin_altitude = 0.0;
 bool lidar_localization::GNSSData::origin_position_inited = false;
 GeographicLib::LocalCartesian lidar_localization::GNSSData::geo_converter;
 
 namespace lidar_localization {
 void GNSSData::InitOriginPosition() {
     geo_converter.Reset(latitude, longitude, altitude);
+
+    origin_longitude = longitude;
+    origin_latitude = latitude;
+    origin_altitude = altitude;
+
     origin_position_inited = true;
 }
 

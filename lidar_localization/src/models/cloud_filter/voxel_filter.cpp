@@ -33,7 +33,7 @@ bool VoxelFilter::SetFilterParam(float leaf_size_x, float leaf_size_y, float lea
     return true;
 }
 
-bool VoxelFilter::Filter(CloudData::CLOUD_PTR& input_cloud_ptr, CloudData::CLOUD_PTR& filtered_cloud_ptr) {
+bool VoxelFilter::Filter(const CloudData::CLOUD_PTR& input_cloud_ptr, CloudData::CLOUD_PTR& filtered_cloud_ptr) {
     voxel_filter_.setInputCloud(input_cloud_ptr);
     voxel_filter_.filter(*filtered_cloud_ptr);
 

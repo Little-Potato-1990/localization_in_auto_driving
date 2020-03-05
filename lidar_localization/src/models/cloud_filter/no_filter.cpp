@@ -10,7 +10,7 @@ namespace lidar_localization {
 NoFilter::NoFilter() {
 }
 
-bool NoFilter::Filter(CloudData::CLOUD_PTR& input_cloud_ptr, CloudData::CLOUD_PTR& filtered_cloud_ptr) {
+bool NoFilter::Filter(const CloudData::CLOUD_PTR& input_cloud_ptr, CloudData::CLOUD_PTR& filtered_cloud_ptr) {
     filtered_cloud_ptr.reset(new CloudData::CLOUD(*input_cloud_ptr));
     return true;
 }
