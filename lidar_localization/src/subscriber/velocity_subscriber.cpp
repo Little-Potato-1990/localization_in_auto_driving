@@ -14,6 +14,7 @@ VelocitySubscriber::VelocitySubscriber(ros::NodeHandle& nh, std::string topic_na
 }
 
 void VelocitySubscriber::msg_callback(const geometry_msgs::TwistStampedConstPtr& twist_msg_ptr) {
+    buff_mutex_.lock();
     VelocityData velocity_data;
     velocity_data.time = twist_msg_ptr->header.stamp.toSec();
 
@@ -26,12 +27,15 @@ void VelocitySubscriber::msg_callback(const geometry_msgs::TwistStampedConstPtr&
     velocity_data.angular_velocity.z = twist_msg_ptr->twist.angular.z;
 
     new_velocity_data_.push_back(velocity_data);
+    buff_mutex_.unlock();
 }
 
 void VelocitySubscriber::ParseData(std::deque<VelocityData>& velocity_data_buff) {
+    buff_mutex_.lock();
     if (new_velocity_data_.size() > 0) {
         velocity_data_buff.insert(velocity_data_buff.end(), new_velocity_data_.begin(), new_velocity_data_.end());
         new_velocity_data_.clear();
     }
+    buff_mutex_.unlock();
 }
 }

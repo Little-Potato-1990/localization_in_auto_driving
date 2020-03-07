@@ -7,8 +7,12 @@
 #define LIDAR_LOCALIZATION_SUBSCRIBER_VELOCITY_SUBSCRIBER_HPP_
 
 #include <deque>
+#include <mutex>
+#include <thread>
+
 #include <ros/ros.h>
 #include "geometry_msgs/TwistStamped.h"
+
 #include "lidar_localization/sensor_data/velocity_data.hpp"
 
 namespace lidar_localization {
@@ -24,8 +28,9 @@ class VelocitySubscriber {
   private:
     ros::NodeHandle nh_;
     ros::Subscriber subscriber_;
+    std::deque<VelocityData> new_velocity_data_;
 
-    std::deque<VelocityData> new_velocity_data_; 
+    std::mutex buff_mutex_; 
 };
 }
 #endif

@@ -7,6 +7,9 @@
 #define LIDAR_LOCALIZATION_SUBSCRIBER_LOOP_POSE_SUBSCRIBER_HPP_
 
 #include <deque>
+#include <mutex>
+#include <thread>
+
 #include <ros/ros.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 
@@ -25,8 +28,9 @@ class LoopPoseSubscriber {
   private:
     ros::NodeHandle nh_;
     ros::Subscriber subscriber_;
+    std::deque<LoopPose> new_loop_pose_;
 
-    std::deque<LoopPose> new_loop_pose_; 
+    std::mutex buff_mutex_; 
 };
 }
 #endif

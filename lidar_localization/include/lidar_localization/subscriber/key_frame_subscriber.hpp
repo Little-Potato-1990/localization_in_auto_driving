@@ -7,6 +7,9 @@
 #define LIDAR_LOCALIZATION_SUBSCRIBER_KEY_FRAME_SUBSCRIBER_HPP_
 
 #include <deque>
+#include <mutex>
+#include <thread>
+
 #include <ros/ros.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 
@@ -25,8 +28,9 @@ class KeyFrameSubscriber {
   private:
     ros::NodeHandle nh_;
     ros::Subscriber subscriber_;
+    std::deque<KeyFrame> new_key_frame_;
 
-    std::deque<KeyFrame> new_key_frame_; 
+    std::mutex buff_mutex_; 
 };
 }
 #endif

@@ -13,6 +13,7 @@ LoopPoseSubscriber::LoopPoseSubscriber(ros::NodeHandle& nh, std::string topic_na
 }
 
 void LoopPoseSubscriber::msg_callback(const geometry_msgs::PoseWithCovarianceStampedConstPtr& loop_pose_msg_ptr) {
+    buff_mutex_.lock();
     LoopPose loop_pose;
     loop_pose.time = loop_pose_msg_ptr->header.stamp.toSec();
     loop_pose.index0 = (unsigned int)loop_pose_msg_ptr->pose.covariance[0];
@@ -30,12 +31,15 @@ void LoopPoseSubscriber::msg_callback(const geometry_msgs::PoseWithCovarianceSta
     loop_pose.pose.block<3,3>(0,0) = q.matrix();
 
     new_loop_pose_.push_back(loop_pose);
+    buff_mutex_.unlock();
 }
 
 void LoopPoseSubscriber::ParseData(std::deque<LoopPose>& loop_pose_buff) {
+    buff_mutex_.lock();
     if (new_loop_pose_.size() > 0) {
         loop_pose_buff.insert(loop_pose_buff.end(), new_loop_pose_.begin(), new_loop_pose_.end());
         new_loop_pose_.clear();
     }
+    buff_mutex_.unlock();
 }
 }

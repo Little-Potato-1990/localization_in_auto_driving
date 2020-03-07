@@ -7,8 +7,12 @@
 #define LIDAR_LOCALIZATION_SUBSCRIBER_GNSS_SUBSCRIBER_HPP_
 
 #include <deque>
+#include <mutex>
+#include <thread>
+
 #include <ros/ros.h>
 #include "sensor_msgs/NavSatFix.h"
+
 #include "lidar_localization/sensor_data/gnss_data.hpp"
 
 namespace lidar_localization {
@@ -24,8 +28,9 @@ class GNSSSubscriber {
   private:
     ros::NodeHandle nh_;
     ros::Subscriber subscriber_;
-
     std::deque<GNSSData> new_gnss_data_;
+
+    std::mutex buff_mutex_;
 };
 }
 #endif

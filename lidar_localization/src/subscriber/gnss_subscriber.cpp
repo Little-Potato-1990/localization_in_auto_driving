@@ -14,6 +14,7 @@ GNSSSubscriber::GNSSSubscriber(ros::NodeHandle& nh, std::string topic_name, size
 }
 
 void GNSSSubscriber::msg_callback(const sensor_msgs::NavSatFixConstPtr& nav_sat_fix_ptr) {
+    buff_mutex_.lock();
     GNSSData gnss_data;
     gnss_data.time = nav_sat_fix_ptr->header.stamp.toSec();
     gnss_data.latitude = nav_sat_fix_ptr->latitude;
@@ -23,12 +24,15 @@ void GNSSSubscriber::msg_callback(const sensor_msgs::NavSatFixConstPtr& nav_sat_
     gnss_data.service = nav_sat_fix_ptr->status.service;
 
     new_gnss_data_.push_back(gnss_data);
+    buff_mutex_.unlock();
 }
 
 void GNSSSubscriber::ParseData(std::deque<GNSSData>& gnss_data_buff) {
+    buff_mutex_.lock();
     if (new_gnss_data_.size() > 0) {
         gnss_data_buff.insert(gnss_data_buff.end(), new_gnss_data_.begin(), new_gnss_data_.end());
         new_gnss_data_.clear();
     }
+    buff_mutex_.unlock();
 }
 }

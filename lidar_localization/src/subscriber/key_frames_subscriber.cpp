@@ -13,6 +13,7 @@ KeyFramesSubscriber::KeyFramesSubscriber(ros::NodeHandle& nh, std::string topic_
 }
 
 void KeyFramesSubscriber::msg_callback(const nav_msgs::Path::ConstPtr& key_frames_msg_ptr) {
+    buff_mutex_.lock();
     new_key_frames_.clear();
 
     for (size_t i = 0; i < key_frames_msg_ptr->poses.size(); i++) {
@@ -33,12 +34,15 @@ void KeyFramesSubscriber::msg_callback(const nav_msgs::Path::ConstPtr& key_frame
 
         new_key_frames_.push_back(key_frame);
     }
+    buff_mutex_.unlock();
 }
 
 void KeyFramesSubscriber::ParseData(std::deque<KeyFrame>& key_frames_buff) {
+    buff_mutex_.lock();
     if (new_key_frames_.size() > 0) {
         key_frames_buff = new_key_frames_;
         new_key_frames_.clear();
     }
+    buff_mutex_.unlock();
 }
 }

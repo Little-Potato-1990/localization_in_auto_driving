@@ -13,6 +13,7 @@ KeyFrameSubscriber::KeyFrameSubscriber(ros::NodeHandle& nh, std::string topic_na
 }
 
 void KeyFrameSubscriber::msg_callback(const geometry_msgs::PoseWithCovarianceStampedConstPtr& key_frame_msg_ptr) {
+    buff_mutex_.lock();
     KeyFrame key_frame;
     key_frame.time = key_frame_msg_ptr->header.stamp.toSec();
     key_frame.index = (unsigned int)key_frame_msg_ptr->pose.covariance[0];
@@ -29,12 +30,15 @@ void KeyFrameSubscriber::msg_callback(const geometry_msgs::PoseWithCovarianceSta
     key_frame.pose.block<3,3>(0,0) = q.matrix();
 
     new_key_frame_.push_back(key_frame);
+    buff_mutex_.unlock();
 }
 
 void KeyFrameSubscriber::ParseData(std::deque<KeyFrame>& key_frame_buff) {
+    buff_mutex_.lock();
     if (new_key_frame_.size() > 0) {
         key_frame_buff.insert(key_frame_buff.end(), new_key_frame_.begin(), new_key_frame_.end());
         new_key_frame_.clear();
     }
+    buff_mutex_.unlock();
 }
 }
