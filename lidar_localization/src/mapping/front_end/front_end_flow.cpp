@@ -10,7 +10,7 @@
 namespace lidar_localization {
 FrontEndFlow::FrontEndFlow(ros::NodeHandle& nh) {
     cloud_sub_ptr_ = std::make_shared<CloudSubscriber>(nh, "/synced_cloud", 100000);
-    laser_odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/laser_odom", "/map", "/lidar", 100);
+    laser_odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/laser_odom", "map", "/lidar", 100);
 
     front_end_ptr_ = std::make_shared<FrontEnd>();
 }

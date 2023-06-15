@@ -16,9 +16,9 @@ BackEndFlow::BackEndFlow(ros::NodeHandle& nh) {
     gnss_pose_sub_ptr_ = std::make_shared<OdometrySubscriber>(nh, "/synced_gnss", 100000);
     laser_odom_sub_ptr_ = std::make_shared<OdometrySubscriber>(nh, "/laser_odom", 100000);
 
-    transformed_odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/transformed_odom", "/map", "/lidar", 100);
-    key_frame_pub_ptr_ = std::make_shared<KeyFramePublisher>(nh, "/key_frame", "/map", 100);
-    key_frames_pub_ptr_ = std::make_shared<KeyFramesPublisher>(nh, "/optimized_key_frames", "/map", 100);
+    transformed_odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/transformed_odom", "map", "/lidar", 100);
+    key_frame_pub_ptr_ = std::make_shared<KeyFramePublisher>(nh, "/key_frame", "map", 100);
+    key_frames_pub_ptr_ = std::make_shared<KeyFramesPublisher>(nh, "/optimized_key_frames", "map", 100);
 
     back_end_ptr_ = std::make_shared<BackEnd>();
 }

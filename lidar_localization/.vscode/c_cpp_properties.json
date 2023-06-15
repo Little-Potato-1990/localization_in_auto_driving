@@ -6,12 +6,12 @@
                 "limitSymbolsToIncludedHeaders": true
             },
             "includePath": [
-                "/opt/ros/kinetic/include",
+                "/opt/ros/noetic/include",
                 "/usr/include"
             ],
             "name": "Linux",
             "intelliSenseMode": "gcc-x64",
-            "compilerPath": "/usr/bin/clang",
+            //"compilerPath": "/usr/bin/clang",
             "cStandard": "c11",
             "cppStandard": "c++17"
         }
